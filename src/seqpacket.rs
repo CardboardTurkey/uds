@@ -151,7 +151,7 @@ macro_rules! impl_mio_if_enabled {($type:tt) => {
 ///     .expect("connect to abstract seqpacket listener");
 /// let (_server, _addr) = listener.accept_unix_addr().unwrap();
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 #[repr(transparent)]
 pub struct UnixSeqpacketConn {
     fd: RawFd,
@@ -535,7 +535,7 @@ impl UnixSeqpacketConn {
 /// conn.send(b"Welcome").unwrap();
 /// # std::fs::remove_file("seqpacket_listener.socket").unwrap();
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 #[repr(transparent)]
 pub struct UnixSeqpacketListener {
     fd: RawFd
@@ -743,7 +743,7 @@ impl UnixSeqpacketListener {
 /// assert_eq!(current_events[0].token(), Token(1));
 /// assert_eq!(a.recv(&mut [0; 8]).expect("receive packet"), 8/*truncated*/);
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 #[repr(transparent)]
 pub struct NonblockingUnixSeqpacketConn {
     fd: RawFd,
@@ -1020,7 +1020,7 @@ impl NonblockingUnixSeqpacketConn {
 /// let (_, _addr) = listener.accept_unix_addr().expect("accept connection");
 /// # let _ = std::fs::remove_file("seqpacket.sock"); // clean up after ourself on success
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 #[repr(transparent)]
 pub struct NonblockingUnixSeqpacketListener {
     fd: RawFd

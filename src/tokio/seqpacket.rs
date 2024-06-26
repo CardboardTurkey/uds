@@ -9,6 +9,7 @@ use tokio_crate::io::Interest;
 use tokio_crate::io::unix::AsyncFd;
 
 /// An I/O object representing a Unix Sequenced-packet socket.
+#[derive(Debug)]
 pub struct UnixSeqpacketConn {
     io: AsyncFd<nonblocking::UnixSeqpacketConn>,
 }
@@ -179,6 +180,7 @@ impl IntoRawFd for UnixSeqpacketConn {
 
 
 /// An I/O object representing a Unix Sequenced-packet socket.
+#[derive(Debug)]
 pub struct UnixSeqpacketListener {
     io: AsyncFd<nonblocking::UnixSeqpacketListener>,
 }

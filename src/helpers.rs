@@ -76,7 +76,7 @@ pub fn set_nonblocking(fd: RawFd,  nonblocking: bool) -> Result<(), io::Error> {
 }
 
 
-
+#[derive(Clone, Copy, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
 pub struct SetAddr(unsafe extern "C" fn(RawFd, *const sockaddr, socklen_t) -> c_int);
 impl SetAddr {
     pub const LOCAL: Self = SetAddr(bind);
@@ -100,6 +100,7 @@ pub fn set_unix_addr(socket: RawFd,  set_side: SetAddr,  addr: &UnixSocketAddr)
     }
 }
 
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
 pub struct GetAddr(unsafe extern "C" fn(RawFd, *mut sockaddr, *mut socklen_t) -> c_int);
 impl GetAddr {
     pub const LOCAL: Self = GetAddr(getsockname);
@@ -140,6 +141,7 @@ pub fn take_error(socket: RawFd) -> Result<Option<io::Error>, io::Error> {
     }
 }
 
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 #[repr(C)]
 pub struct TimeoutDirection(c_int);
 impl TimeoutDirection {
@@ -211,6 +213,7 @@ pub fn get_timeout(socket: RawFd,  direction: TimeoutDirection)
 
 /// Used in setup of sockets to ensure the file descriptor is always closed
 /// if later parts of the setup fails.
+#[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Socket(RawFd);
 
 impl Drop for Socket {

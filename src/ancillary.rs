@@ -165,6 +165,7 @@ pub fn send_ancillary(
 /// An ancillary data buffer that supports any capacity.
 ///
 /// For reasonable ancillary capacities it uses a stack-based array.
+#[derive(Clone)]
 #[repr(C)]
 pub struct AncillaryBuf {
     capacity: ControlLen,
@@ -288,6 +289,7 @@ impl AsMut<[u8]> for AncillaryBuf {
     }
 }
 
+#[derive(Copy, Clone)]
 pub struct FdSliceIterator<'a> {
     pos: usize,
     slice: &'a FdSlice<'a>,
@@ -309,6 +311,7 @@ impl<'a> Iterator for FdSliceIterator<'a> {
     }
 }
 
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
 pub struct FdSlice<'a> {
     /// The underlying buffer as ptr
     unaligned_ptr: *const RawFd,
@@ -372,6 +375,7 @@ pub enum AncillaryItem<'a> {
 }
 
 /// An iterator over ancillary messages received with `recv_ancillary()`.
+#[derive(Clone)]
 pub struct Ancillary<'a> {
     // addr and bytes are not used here:
     // * addr is usually placed on the stack by the calling wrapper method,

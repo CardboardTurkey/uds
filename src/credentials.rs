@@ -375,7 +375,7 @@ pub type RawReceivedCredentials = libc::ucred;
 /// * On FreeBSD, NetBSD, DragonFly BSD, Illumos and likely macOS it is provided
 ///   by the OS automatically when the socket option is set.
 /// * OpenBSD doesn't appear to support receiving credentials.
-#[derive(Clone,Copy, PartialEq,Eq,Hash, Debug)]
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct ReceivedCredentials {
     #[cfg(any(target_os="linux", target_os="android", target_os="dragonfly"))]
     pid: u32,
